@@ -15,8 +15,6 @@ def convertir_taille_en_lettre(taille):
     }
     return correspondances[taille]
 
-
-
 def convertir_lettre_taille(lettre):
     """Convertit la taille numérique du bateau en sa lettre correspondante."""
     correspondances = {
@@ -116,43 +114,23 @@ def afficher_grille(grille_visibles):
         print(chr(65 + i) + " | " + " | ".join(ligne) + " |")
         print("  " + "---" * 13 + "--")
 
-def verifier_bateau_coule_joueur(grille, grille_visibles, taille):
-    """Vérifie si un bateau de la taille donnée est coulé et met à jour la grille visible."""
-    # Tableau des bateaux selon leur taille
-    bateaux = [[] for _ in range(5)]  # Chaque ligne correspond à un bateau de taille 1 à 5
-    print(list(enumerate(grille)))
-    # Identifier les positions du bateau
-    for i, ligne in enumerate(grille):
-        for j, cell in enumerate(ligne):
-            if cell == taille or grille_visibles[i][j] == '+':
-                bateaux[len(bateaux) - convertir_lettre_taille(taille)].append((i, j))
-
-    # Vérifier si le bateau de la taille correspondante est coulé
-    coule = all(grille[x][y] == ' ' for x, y in bateaux[len(bateaux) - convertir_lettre_taille(taille)])
-
-    if coule:
-        for x, y in bateaux[len(bateaux) - convertir_lettre_taille(taille)]:
-            grille_visibles[x][y] = 'x'  # Mettre à jour uniquement les positions du bateau concerné
-        return True
-
-    return False
-
-def verifier_bateau_coule_ordinateur(grille, grille_visibles, taille):
-    """Vérifie si un bateau de la taille donnée est coulé et met à jour la grille visible."""
+def verifier_bateau_coule(grille, grille_visibles, taille):
+    """Vérifie si un bateau de la taille donnée est coulé et met à jour les grilles."""
     # Tableau des bateaux selon leur taille
     bateaux = [[] for _ in range(5)]  # Chaque ligne correspond à un bateau de taille 1 à 5
 
     # Identifier les positions du bateau
     for i, ligne in enumerate(grille):
         for j, cell in enumerate(ligne):
-            if cell == taille or grille_visibles[i][j] == '+':
+            if cell == taille:
                 bateaux[len(bateaux) - convertir_lettre_taille(taille)].append((i, j))
 
     # Vérifier si le bateau de la taille correspondante est coulé
-    coule = all(grille[x][y] == ' ' for x, y in bateaux[len(bateaux) - convertir_lettre_taille(taille)])
+    coule = all(grille_visibles[x][y] == '+' for x, y in bateaux[len(bateaux) - convertir_lettre_taille(taille)])
 
     if coule:
         for x, y in bateaux[len(bateaux) - convertir_lettre_taille(taille)]:
+            grille[x][y] = ' '
             grille_visibles[x][y] = 'x'  # Mettre à jour uniquement les positions du bateau concerné
         return True
 
@@ -237,16 +215,15 @@ def tour_de_jeu(joueur, grille_adverse, grille_visibles_adverses, coups_joues, d
             elif joueur == 2:
                 print("L'ordinateur a touché !")
             taille_bateau = grille_adverse[ligne][colonne]
-            grille_adverse[ligne][colonne] = ' '
             grille_visibles_adverses[ligne][colonne] = '+'
 
             # Vérifier si le bateau est coulé
             if joueur == 1:
-                if(verifier_bateau_coule_joueur(grille_adverse, grille_visibles_adverses, taille_bateau)):
+                if verifier_bateau_coule(grille_adverse, grille_visibles_adverses, taille_bateau):
 
                     print("Vous avez coulé un", nom_bateau(taille_bateau), "!")
             else:
-                if (verifier_bateau_coule_ordinateur(grille_adverse, grille_visibles_adverses, taille_bateau)):
+                if verifier_bateau_coule(grille_adverse, grille_visibles_adverses, taille_bateau):
                     print("L'ordinateur a coulé un", nom_bateau(taille_bateau), "!")
 
             dernier_tir = (ligne, colonne)
