@@ -1,0 +1,13 @@
+{
+  "name": "Amora",
+  "short_name": "Amora",
+  "description": "Rencontres en France et en Europe",
+  "start_url": "/decouvrir",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff4d6d",
+  "lang": "fr",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "amora",
+  "private": true,
+  "description": "Application de rencontre Amora (France / UE) — API Node.js + client React",
+  "scripts": {
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "seed": "npm run seed --prefix server",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "NODE_ENV=production npm start --prefix server",
+    "test": "npm test --prefix server"
+  }
+}
