@@ -97,6 +97,11 @@ lit la configuration via `/api/meta`.
 
 ## Mise en production
 
+> 👉 **Guide pas à pas pour débutant (VPS, une seule commande) : [`deploy/GUIDE.md`](deploy/GUIDE.md).**
+> Installation : `curl -fsSL https://raw.githubusercontent.com/Adocool003/projet/main/amora/deploy/install.sh | bash`
+
+Résumé des étapes :
+
 1. Créez dans Stripe 3 produits avec un **prix récurrent mensuel en EUR** (Plus, Gold, Platinum).
    Activez **Stripe Tax** pour appliquer la TVA du pays de chaque client européen (régime OSS).
 2. Copiez `server/.env.example` vers `server/.env` et renseignez les clés.

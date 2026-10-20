@@ -11,6 +11,8 @@ export const config = {
   port: Number(env.PORT || 4000),
   appName: env.APP_NAME || 'Amora',
   clientUrl: env.CLIENT_URL || 'http://localhost:5173',
+  // Cookie de session réservé au HTTPS en production (désactivable pour un test en HTTP)
+  cookieSecure: env.COOKIE_SECURE ? env.COOKIE_SECURE === 'true' : env.NODE_ENV === 'production',
   jwtSecret: env.JWT_SECRET || 'dev-secret-a-changer-absolument',
   dbFile: env.DB_FILE || path.join(root, 'data', 'amora.db'),
   uploadDir: env.UPLOAD_DIR || path.join(root, 'uploads'),

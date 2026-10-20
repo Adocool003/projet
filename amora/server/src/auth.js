@@ -24,7 +24,7 @@ export function setSessionCookie(res, userId) {
   res.cookie(COOKIE_NAME, signToken(userId), {
     httpOnly: true,
     sameSite: 'lax',
-    secure: config.isProd,
+    secure: config.cookieSecure,
     maxAge: MAX_AGE_MS,
     path: '/',
   });
